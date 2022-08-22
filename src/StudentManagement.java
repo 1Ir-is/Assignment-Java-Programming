@@ -48,6 +48,9 @@ public class StudentManagement extends JFrame {
             } else if (CheckNameValid(name)) {
                 JOptionPane.showMessageDialog(null,
                         "Name is invalid, please try again", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckGradeValid(grade)) {
+                JOptionPane.showMessageDialog(null,
+                        "Grade must be P , M or D", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -89,4 +92,15 @@ public class StudentManagement extends JFrame {
         return true;
     }
     //END CHECK NAME IS VALID
+
+    //CHECK GRADE IS VALID
+    public boolean CheckGradeValid(String grade){
+        if (grade.equalsIgnoreCase("P")
+                || grade.equalsIgnoreCase("M")
+                || grade.equalsIgnoreCase("D")){
+            return true;
+        }
+        return false;
+    }
+    //END CHECK GRADE IS VALID
 }
