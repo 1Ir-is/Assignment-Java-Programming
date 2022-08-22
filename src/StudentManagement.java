@@ -41,7 +41,10 @@ public class StudentManagement extends JFrame {
         if (id.isEmpty() && name.isEmpty()){
             if (CheckId(id)){
                 JOptionPane.showMessageDialog(null,
-                        "Duplicated ID", "Error", JOptionPane.ERROR_MESSAGE);
+                        "Duplicated Id!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckIdValid(id)) {
+                JOptionPane.showMessageDialog(null,
+                        "Id is invalid, please try again!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -56,4 +59,17 @@ public class StudentManagement extends JFrame {
             }
         }return false;
     }
+    //END CHECK ID
+
+    //CHECK ID IS VALID
+    public boolean CheckIdValid(String id){
+        try
+        {
+            Integer.parseInt(id);
+            return true;
+        }
+
+        catch (NumberFormatException e){return false;}
+    }
+    //END CHECK ID IS VALID
 }
