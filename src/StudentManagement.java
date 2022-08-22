@@ -37,5 +37,23 @@ public class StudentManagement extends JFrame {
         }
         String grade = gradeField.getText().toUpperCase();
 
+        //VALIDATE
+        if (id.isEmpty() && name.isEmpty()){
+            if (CheckId(id)){
+                JOptionPane.showMessageDialog(null,
+                        "Duplicated ID", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    //END
+
+    //CHECK STUDENT INFO
+    //CHECK ID
+    public boolean CheckId(String id){
+        for (Student user : studentArrayList) {
+            if (user.getId().equals(id)) {
+                return true;
+            }
+        }return false;
     }
 }
