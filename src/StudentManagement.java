@@ -65,7 +65,19 @@ public class StudentManagement extends JFrame {
             }
         }
     }
+    //END VALIDATE
     //END ADD FUNCTION
+
+    // DELETE FUNCTION
+    public void deleteStudent(ActionEvent event){
+        String id = idField.getText().trim();
+        for (int i = 0; i<studentArrayList.size(); i++){
+            if (studentArrayList.get(i).getId().equals(id)){
+                studentArrayList.remove(i);
+            }
+        }
+    }
+    //END DELETE FUNCTION
 
     //CHECK STUDENT INFO
     //CHECK ID
