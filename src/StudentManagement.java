@@ -52,9 +52,20 @@ public class StudentManagement extends JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Grade must be P , M or D", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            Student student = new Student(id, name, gender, grade);
+            studentArrayList.add(student);
+        }
+        else {
+            if (id.isEmpty()){
+                JOptionPane.showMessageDialog(null,
+                        "Id field can be blank", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Name field can be blank", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
-    //END
+    //END ADD FUNCTION
 
     //CHECK STUDENT INFO
     //CHECK ID
@@ -103,4 +114,5 @@ public class StudentManagement extends JFrame {
         return false;
     }
     //END CHECK GRADE IS VALID
+    //END CHECK STUDENT INFO
 }
