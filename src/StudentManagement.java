@@ -45,6 +45,9 @@ public class StudentManagement extends JFrame {
             } else if (CheckIdValid(id)) {
                 JOptionPane.showMessageDialog(null,
                         "Id is invalid, please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckNameValid(name)) {
+                JOptionPane.showMessageDialog(null,
+                        "Name is invalid, please try again", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -72,4 +75,18 @@ public class StudentManagement extends JFrame {
         catch (NumberFormatException e){return false;}
     }
     //END CHECK ID IS VALID
+
+    //CHECK NAME IS VALID
+    public static boolean CheckNameValid(String name) {
+        for (int i = 0; i < name.length(); ++i) {
+            char ch = name.charAt(i);
+
+            // If the character is not a letter and not a whitespace, return false.
+            if (!Character.isLetter(ch) && !Character.isWhitespace(ch)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //END CHECK NAME IS VALID
 }
