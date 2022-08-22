@@ -1,6 +1,8 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
+import java.awt.font.FontRenderContext;
+import java.io.*;
 import java.util.ArrayList;
 
 public class StudentManagement extends JFrame {
@@ -10,6 +12,7 @@ public class StudentManagement extends JFrame {
     public JRadioButton maleRadioButton;
     public JRadioButton femaleRadioButton;
     public JRadioButton otherRadioButton;
+    public JTable tableStudent;
 
     ArrayList<Student> studentArrayList = new ArrayList<>();
     static String databaseFile = "StudentManagement.txt";
@@ -127,8 +130,87 @@ public class StudentManagement extends JFrame {
             }
         }
     }
-    //END FUNCTION
+    //END UPDATE FUNCTION
 
+    //SEARCH FUNCTION
+    public void searchStudent(ActionEvent e){
+        String id = idField.getText().trim();
+        clearTableContents();
+        if (!id.isEmpty()){
+            for (Student student : studentArrayList) {
+                if (student.getId().equals(id)) {
+                    Student findedStudent = new Student(student.getId(), student.getName(), student.getGender(), student.getGrade());
+                    clearTableContents();
+                    returnFindedStudentsToTable(findedStudent);
+                }
+            }
+        } else{
+            returnStudentsToTable(readFile());
+            JOptionPane.showMessageDialog(null, "Filling Search Field Required", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    //END SEARCH FUNCTION
+
+    // return user by Object
+    public void returnFindedStudentsToTable(Student student){
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableStudent.getModel();
+        String[] findedUser = student.toString().split(",");
+        defaultTableModel.addRow(findedUser);
+    }
+
+    // clear all the contents of table
+    public void clearTableContents(){
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableStudent.getModel();
+        defaultTableModel.setRowCount(0);
+    }
+
+    // read file
+    public Object[] readFile(){
+        Object[] objects;
+        try {
+            FileReader fr = new FileReader(databaseFile);
+            BufferedReader bufferedReader = new BufferedReader(fr);
+            // each lines to array
+            objects = bufferedReader.lines().toArray();
+            bufferedReader.close();
+            return objects;
+        } catch (IOException e) {
+
+        }
+        return null;
+    }
+
+    // write from list to file
+    public static void writeToFile(ArrayList<Student> _users){
+        try{
+            FileWriter fw = new FileWriter(databaseFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (Student user: _users
+            ) {
+                bw.write(user.toString());
+                bw.newLine();
+            }
+            bw.close();
+            fw.close();
+
+        }catch (Exception exception){
+
+        }
+    }
+
+    // return user by Object array
+    public void returnStudentsToTable(Object[] objects){
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableStudent.getModel();
+        int i = 0;
+        while(i < objects.length) {
+            String row = objects[i].toString().trim();
+            String[] rows = row.split(",");
+            defaultTableModel.addRow(rows);
+            i++;
+        }
+    }
     //CHECK STUDENT INFO
     //CHECK ID
     public boolean CheckId(String id){
