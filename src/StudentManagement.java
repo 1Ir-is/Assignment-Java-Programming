@@ -79,6 +79,56 @@ public class StudentManagement extends JFrame {
     }
     //END DELETE FUNCTION
 
+    //UPDATE FUNCTION
+    public void updateStudent(ActionEvent e){
+        String id = idField.getText().trim();
+        String name = nameField.getText().trim();
+        String gender;
+        if (maleRadioButton.isSelected()){
+            gender = maleRadioButton.getText();
+        } else if (femaleRadioButton.isSelected()) {
+            gender = femaleRadioButton.getText();
+        } else if (otherRadioButton.isSelected()) {
+            gender = otherRadioButton.getText();
+        }
+        else {
+            gender = "";
+        }
+        String grade = gradeField.getText().toUpperCase();
+        if (id.isEmpty() && name.isEmpty()){
+            if (CheckId(id)){
+                JOptionPane.showMessageDialog(null,
+                        "Duplicated Id!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckIdValid(id)) {
+                JOptionPane.showMessageDialog(null,
+                        "Id is invalid, please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckNameValid(name)) {
+                JOptionPane.showMessageDialog(null,
+                        "Name is invalid, please try again", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (CheckGradeValid(grade)) {
+                JOptionPane.showMessageDialog(null,
+                        "Grade must be P , M or D", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            for (Student student : studentArrayList){
+                if (student.getId().equals(id)){
+                    student.setName(name);
+                    student.setGender(gender);
+                    student.setGrade(grade);
+                }
+            }
+        }
+        else{
+            if (id.isEmpty()){
+                JOptionPane.showMessageDialog(null,
+                        "Id field can be blank", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (name.isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Name field can be blank", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    //END FUNCTION
+
     //CHECK STUDENT INFO
     //CHECK ID
     public boolean CheckId(String id){
